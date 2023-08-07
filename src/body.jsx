@@ -1,41 +1,51 @@
 import light from '../src/assets/icon-sun.svg'
 import Bglight from '../src/assets/bg-desktop-light.jpg'
 import Item from './Item'
-// import listdata from './listdata'
 import { useState } from 'react'
 
 
 
 export default function Body () {
     
-        const [inputName, setInputName] = useState("");
-        const [tasks, setTasks] = useState([]);
+        const [inputName, setInputName] = useState("")
+        const [tasks, setTasks] = useState([])
+        const [completed, setCompleted] = useState({})
+        const [filterOption, setFilterOption] = useState("All")
+
         const handleInput = (e) => {
           setInputName(e.target.value);
         };
       
         const handleSubmit = (e) => {
           e.preventDefault();
-      
+          
           if (inputName) {
-            const newTask = { id: inputName, list: inputName };
-            setTasks([...tasks, newTask]); 
-            setInputName(""); 
-            console.log(newTask)
+            const newTask = { id: inputName, list: inputName}
+            setTasks([...tasks, newTask]) 
+            setInputName("")
+            
           }
-        };
+        }
 
         const deleteTask = (taskId) => {
-            const updatedTasks = tasks.filter((task) => task.id !== taskId);
-            setTasks(updatedTasks);
+            const updatedTasks = tasks.filter((task) => task.id !== taskId)
+            setTasks(updatedTasks)
           }
 
     
         const ClearTasks = () => {
           setTasks([])
         }
-        
 
+
+        const toggleCompletion = (taskId) => {
+          setCompleted((prevCompleted) => ({
+            ...prevCompleted,
+            [taskId]: !prevCompleted[taskId],
+          }))
+        }
+        const tasksLeft = tasks.filter((task) => !task.completed).length;
+        
 
     return (
         <header className='h-screen bg-dark-blue-200'>
@@ -53,19 +63,37 @@ export default function Body () {
 
                 <div className='relative flex justify-center'>
                   <ul>
-                    {tasks.length > 0 ? (
-                      tasks.map((task) => (
-                        <Item task={task} key={task.id} onDelete={deleteTask}/>
-                      ))
-                    ) : (
-                      <span className='text-light-blue-300'>No tasks available</span>
+                  {tasks.length > 0 ? (
+                        tasks
+                          .filter((task) => {
+                            if (filterOption === "All") {
+                              return true;
+                            } else if (filterOption === "Active") {
+                              return !completed[task.id];
+                            } else if (filterOption === "Completed") {
+                              return completed[task.id];
+                            }
+                            return true;
+                          })
+                          .map((task) => (
+                            <Item
+                              task={task}
+                              key={task.id}
+                              onDelete={deleteTask}
+                              completed={completed[task.id]}
+                              onCheck={() => toggleCompletion(task.id)}
+                            />
+                          ))
+                      ) : (
+                      <span className='text-dark-blue-200'>No tasks available</span>
                     )}
                     <div className='flex flex-row gap-5  bg-dark-blue-400 rounded-sm items-center justify-center p-1'>
-                      <p className=' cursor-pointer'>Tasks left</p>
-                      <p className=' cursor-pointer'>All</p>
-                      <p className=' cursor-pointer'> Active </p>
-                      <p className=' cursor-pointer'>Completed</p>
-                      <p className=' cursor-pointer hover:text-primary-grad' onClick={ClearTasks}>Clear Completed</p>
+                      <p>{tasksLeft} Tasks left</p>
+                      <p className=' cursor-pointer' onClick={() => setFilterOption("All")}>All</p>
+                      <p className=' cursor-pointer' onClick={() => setFilterOption("Active")}> Active </p>
+                      <p className=' cursor-pointer' onClick={() => setFilterOption("Completed")}>Completed</p>
+                      <p className='cursor-pointer'> clear completed</p>
+                      <p className=' cursor-pointer hover:text-primary-grad' onClick={ClearTasks}>Clear All</p>
                     </div>
                   </ul>
                 </div>
@@ -76,9 +104,3 @@ export default function Body () {
 
 
 
-// CLEAR ALL FUNCTION
-
-// const deleteTask = (taskId) => {
-//     const updateTasks = tasks.filter((task) => task.id == taskId)
-//     setTasks(updateTasks)
-// }

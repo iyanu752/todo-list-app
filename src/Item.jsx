@@ -1,17 +1,10 @@
 import PropTypes from 'prop-types';
 import Cross from './assets/icon-cross.svg'
-import { useState } from 'react';
 
 
 
+function Item({ task, onDelete, completed, onCheck}) {
 
-function Item({ task, onDelete,}) {
-  const [check, setChecked] = useState(false)
-
-
-  const isChecked = () => {
-    setChecked(!check)
-  }
 
   
     return (
@@ -19,14 +12,17 @@ function Item({ task, onDelete,}) {
       p-3 pl-15 pr-15'>
 
         <li className='flex  flex-row justify-between items-center w-full'>
-          <input type='checkbox'className='mr-2' onClick={isChecked}/>
-          
-            {check ? (
-            <del  className=" text-light-blue-300"> <span>{task.list}</span></del>
-          ):(
-           <span>{task.list}</span> 
-          )}
-         
+          <input type='checkbox'className='mr-2'  checked={completed}
+          onChange={onCheck}/>
+
+          <span
+          style={{
+            textDecoration: completed ? 'line-through' : 'none',
+            color: completed ? 'light-blue-200' : 'inherit',
+          }}
+        >
+          {task.list}
+        </span>
 
           <button  className='w-3 h-3' onClick={()=> onDelete(task.id)}>
 
@@ -43,6 +39,8 @@ function Item({ task, onDelete,}) {
 Item.propTypes = {
     task: PropTypes.any.isRequired,
     onDelete: PropTypes.func.isRequired,
+    onCheck:PropTypes.func.isRequired,
+    completed:PropTypes.func.isRequired,
     
 };
 
