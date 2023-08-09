@@ -1,7 +1,7 @@
 import light from '../src/assets/icon-sun.svg'
-import Bglight from '../src/assets/bg-desktop-light.jpg'
+// import Bglight from '../src/assets/bg-desktop-light.jpg'
 import Item from './Item'
-import { useState } from 'react'
+import { useState,} from 'react'
 
 
 
@@ -11,6 +11,7 @@ export default function Body () {
         const [tasks, setTasks] = useState([])
         const [completed, setCompleted] = useState({})
         const [filterOption, setFilterOption] = useState("All")
+
 
         const handleInput = (e) => {
           setInputName(e.target.value);
@@ -45,18 +46,25 @@ export default function Body () {
           }))
         }
         const tasksLeft = tasks.filter((task) => !task.completed).length;
-        
+
+        const clearCompletedTasks = () => {
+          const activeTasks = tasks.filter((task) => !completed[task.id]);
+          setTasks(activeTasks);
+        };
+
+
+
 
     return (
-        <header className='h-screen bg-dark-blue-200'>
-            <img src={Bglight} className=' w-full z-0 absolute'/>
+        <header className='h-screen bg-dark-blue-200 sm:min-h-screen sm: overflow-x-hidden'>
+            {/* <img src={Bglight} className=' lg:w-full z-0 absolute sm: h-1/4'/> */}
             <nav className='flex  justify-center gap-80 p-20 relative'>
-                <h1 className=' text-xl font-xl text-light-blue-100  z-10'>TODO</h1>
-                <img src={light}/>    
+                <h1 className='lg:text-xl font-xl text-light-blue-100  z-10 sm: pl-32 text-2xl'>TODO</h1>
+                <img src={light} className='sm: relative right-28 ' />    
             </nav>
             <main>
 
-                <form className='flex flex-row gap-11 justify-center items-center' onSubmit={handleSubmit}>
+                <form className='lg: flex flex-row gap-11 justify-center items-center' onSubmit={handleSubmit}>
                     <input type='text' onChange={handleInput} value={inputName}  placeholder='Add a new Task' className=' p-4 w-2/5 h-12 rounded-md mb-5 relative left-10 text-center' />
                     <button type='submit' className='relative bg-dark-blue-300  rounded-md mb-5 p-3 '>+</button>  
                 </form>
@@ -87,12 +95,12 @@ export default function Body () {
                       ) : (
                       <span className='text-dark-blue-200'>No tasks available</span>
                     )}
-                    <div className='flex flex-row gap-5  bg-dark-blue-400 rounded-sm items-center justify-center p-1'>
+                    <div className=' lg:flex flex-row gap-5  bg-dark-blue-400 rounded-sm items-center justify-center p-1 sm:text-center sm: flex pl-10 pr-10 text-sm mt-10'>
                       <p>{tasksLeft} Tasks left</p>
-                      <p className=' cursor-pointer' onClick={() => setFilterOption("All")}>All</p>
-                      <p className=' cursor-pointer' onClick={() => setFilterOption("Active")}> Active </p>
-                      <p className=' cursor-pointer' onClick={() => setFilterOption("Completed")}>Completed</p>
-                      <p className='cursor-pointer'> clear completed</p>
+                      <p className=' cursor-pointer hover:text-primary-grad' onClick={() => setFilterOption("All")}>All</p>
+                      <p className=' cursor-pointer hover:text-primary-grad' onClick={() => setFilterOption("Active")}> Active </p>
+                      <p className=' cursor-pointer hover:text-primary-grad' onClick={() => setFilterOption("Completed")}>Completed</p>
+                      <p className='cursor-pointer hover:text-primary-grad' onClick={clearCompletedTasks}> clear completed</p>
                       <p className=' cursor-pointer hover:text-primary-grad' onClick={ClearTasks}>Clear All</p>
                     </div>
                   </ul>
