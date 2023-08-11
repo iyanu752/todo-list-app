@@ -1,8 +1,17 @@
-# React + Vite
+ # TODO LIST APP
+ The todo list app is an appi created to help you track your tasks and filter out the active and completed tasks
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# FEATURES
+- light and dark mode toggle
+- filter system for active and completed tasks
+- clear all tasks
+- clear completed tasks
 
-Currently, two official plugins are available:
+# PREVIEW
+![Screenshot 2023-08-11 094209](https://github.com/iyanu752/todo-list-app/assets/127423641/f8462e8f-69a1-4e96-a39b-cdb6745faf03)
+LIGHT MODE
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+
+![dark](https://github.com/iyanu752/todo-list-app/assets/127423641/ccc68298-ad35-478e-9541-c9dcdf9f3fe0)
+DARK MODE
