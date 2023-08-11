@@ -26,7 +26,7 @@ export default {
         500: 'hsl(235, 19%, 35%)',
       },
       'primaryb': ' hsl(220, 98%, 61%)',
-      'primary-grad': 'hsl(280, 87%, 65%)',
+      'primary-grad': 'linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%)',
     },
     screens: {
       sm: '480px',
@@ -43,5 +43,6 @@ export default {
     extend: {},
   },
   plugins: [],
+  darkMode: "class"
 }
 

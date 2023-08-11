@@ -9,10 +9,10 @@ function Item({ task, onDelete, completed, onCheck}) {
 
   
     return (
-      <div className=' lg: bg-dark-blue-400 text-center rounded-sm
-      p-3 pl-15 pr-15 sm:ml-10 mr-10 '>
+      <div className=' lg: bg-light-blue-100 text-center rounded-t-sm items-center
+      p-3 pl-10 pr-10 w-4/5 lg:w-full relative left-20 lg:left-0 sm:ml-10 mr-10  dark:bg-dark-blue-200    '>
 
-        <li className='flex  flex-row justify-between items-center w-full '>
+        <li className='flex  flex-row justify-between font-josefin'>
           <input type='checkbox'className='mr-2 hidden'  checked={completed}
           onChange={onCheck} id={`checkbox-${task.id}`}/>
          
@@ -40,18 +40,18 @@ function Item({ task, onDelete, completed, onCheck}) {
           <span
           style={{
             textDecoration: completed ? 'line-through' : 'none',
-            color: completed ? 'light-blue-200' : 'inherit',
+            color: completed ? 'hsl(236, 9%, 61%)' : 'inherit',
           }}
-        >
+         >
           {task.list}
         </span>
 
-          <button  className='w-3 h-3' onClick={()=> onDelete(task.id)}>
+          <button  className='w-3 h-3 relative top-2' onClick={()=> onDelete(task.id)}>
 
-            <img className='ml-2' src={Cross} alt='delete' />
+            <img className='mr-5 ' src={Cross} alt='delete' />
           </button>
         </li>
-        <hr className='w-full text-dark-blue-300'/>
+        
       </div>
   
     );
